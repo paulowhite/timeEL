@@ -2,7 +2,7 @@
 % Please edit documentation in R/KaplanMeier.R
 \name{KaplanMeier}
 \alias{KaplanMeier}
-\title{Risk and survival probability estimate using the Kaplan-Meier method}
+\title{Risk and survival probability estimates using the Kaplan-Meier method}
 \usage{
 KaplanMeier(
   time,
@@ -32,7 +32,7 @@ object of class 'KaplanMeier'
 \description{
 Computes the Kaplan-Meier estimator to estimate a risk or, equivalently, a survival probability,
 with right-censored data, together with a confidence interval and (possibly) a
-p-value (for a one-sample hypothesis test). Computation of confidence intervals
+p-values (for a one-sample hypothesis test). Computation of confidence intervals
 and p-values is based on either Empirical Likelihood (EL) inference
 or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
 See Thomas & Grunkemeier (1975) for details about the Empirical Likelihood method. For the Wald-type approach,

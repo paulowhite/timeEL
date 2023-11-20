@@ -39,8 +39,8 @@ TwoSampleKaplanMeier(
 an object of class 'TwoSampleKaplanMeier'
 }
 \description{
-Computes an (absolute) risk difference, risk ratio or survival ratio with right-censored data, together with a confidence intervals and
-p-values (to test for difference between two groups). Pointwise estimates are computed via the Kaplan-Meier estimator. Computation of confidence intervals
+Computes a risk difference, risk ratio or survival ratio with right-censored data, together with a confidence interval and
+a p-value (to test for a difference between two groups). Pointwise estimates are computed via the Kaplan-Meier estimator. Computation of confidence intervals
 and p-values are based on either Empirical Likelihood (EL) inference or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
 See Thomas & Grunkemeier (1975) for details about the Empirical Likelihood method. For the Wald-type approach, the asymptotic normal approximation is used on
 the log scale for the risk ratio or survival ratio. No transformation is used for the risk or survival difference.

@@ -39,18 +39,26 @@ an object of class 'TwoSampleAalenJohansen'
 Computes an (absolute) risk difference or ratio with right-censored competing risks data, together with a confidence interval and a
 p-value (to test for a difference between the two risks). Pointwise estimates are computed via the Aalen-Johansen estimator. Computation of confidence intervals
 and p-values are based on either Empirical Likelihood (EL) inference or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
-See Blanche & Eriksson (2023) for details. For the Wald-type approach, the asymptotic normal approximation is used on the log scale for the risk ratio. No transformation is used for the risk difference.
+For the Wald-type approach, the asymptotic normal approximation is used on the log scale for the risk ratio. No transformation is used for the risk difference.
+See Blanche & Eriksson (2023) for details.
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-
-## An example with simulated, for which some results are presented in
-## a Figure in Blanche & Eriksson (2023). It takes approx 20 seconds to run.
-##
+## A simple example for Wald-type inference, using simulated data.
 ## It illustrates the possible inconsistency of Wald-type inference, in
 ## terms of statistical significance, when inference is based on the risk
 ## ratio and on the risk difference. This inconsistency cannot exist
-## using when an empirical likelihood approach.
+## using an empirical likelihood approach.
+
+ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
+                                     cause=SimA100$status,
+                                     group=SimA100$group,
+                                     t=1,
+                                     contr=list(method="Wald"))
+ResSimA100
+
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## Same example data, but now analyzed with and empirical likelihood approach. It
+## takes approx 20 seconds to run.
 
 ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
                                      cause=SimA100$status,
@@ -61,7 +69,7 @@ ResSimA100
 \dontshow{\}) # examplesIf}
 }
 \references{
-Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks (submitted)
+Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks.
 }
 \author{
 Paul Blanche

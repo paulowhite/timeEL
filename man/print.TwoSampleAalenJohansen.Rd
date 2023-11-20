@@ -23,21 +23,29 @@
 Print function for object of class 'TwoSampleAalenJohansen'
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-
-## An example with simulated, for which some results are presented in
-## a Figure in Blanche & Eriksson (2023). It takes approx 20 seconds to run.
-##
+## A simple example for Wald-type inference, using simulated data.
 ## It illustrates the possible inconsistency of Wald-type inference, in
 ## terms of statistical significance, when inference is based on the risk
 ## ratio and on the risk difference. This inconsistency cannot exist
-## using when an empirical likelihood approach.
+## using an empirical likelihood approach.
+
+ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
+                                     cause=SimA100$status,
+                                     group=SimA100$group,
+                                     t=1,
+                                     contr=list(method="Wald"))
+print(ResSimA100, digits=3, what="Diff")
+print(ResSimA100, digits=3, what="RR")
+
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## Same example data, but now analyzed with and empirical likelihood approach. It
+## takes approx 20 seconds to run.
 
 ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
                                      cause=SimA100$status,
                                      group=SimA100$group,
                                      t=1)
-print(ResSimA100, digits=2, what="Diff",  method="EL")
+print(ResSimA100, digits=3, what="Diff",  method="EL")
 \dontshow{\}) # examplesIf}
 }
 \author{

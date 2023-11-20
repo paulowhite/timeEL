@@ -11,7 +11,7 @@
 
 \item{digits}{number of digits to print the results}
 
-\item{type}{either "surv" or "risk" (the default), depending on whether we want to print the results in terms of a survival probability or a risk (i.e. one minus the survival probability)}
+\item{type}{either "surv" or "risk" (the default), depending on whether we want to print the results in terms of a survival probability or a risk (i.e., one minus the survival probability).}
 
 \item{method}{either "EL", "Wald" or "both", depending on whether we want to print the results obtained when using empirical likelihood inference (EL), Wald-type inference (Wald) or both. Default is 'NULL', which means that 'method' inherits the value of the corresponding control parameter used when creating the object 'x'.}
 
@@ -25,8 +25,8 @@ Print function for object of class 'KaplanMeier'
 ResKM.1.95 <- KaplanMeier(time=Freireich$time[Freireich$group==1],
                           status=Freireich$status[Freireich$group==1],
                           t=10, level=0.95, contr=list(tol=1e-4))
-print(ResKM.1.95, digits=3, type="surv", method="EL")   # Show only EL results for survival
-print(ResKM.1.95, digits=3, type="risk", method="Wald") # Show only Wald results for risk
+print(ResKM.1.95, digits=3, type="surv", method="EL")   # EL results for survival
+print(ResKM.1.95, digits=3, type="risk", method="Wald") # Wald results for risk
 
 
 }

@@ -45,8 +45,26 @@
 #' Bone Marrow Transplant Registry
 #'
 #' The data contain observations of 408 patients treated with HLA-identical sibling
-#' bone marrow transplantation for myelodysplasia. The data is a subset of
-#' the 'bmt' data of the 'timereg' package, which has been slightly modified to break the ties.
+#' bone marrow transplantation for myelodysplasia. The dataset is essentially a subset of
+#' the 'bmt' data of the 'timereg' package (minor changes were introduced to break the ties).
+#' 
+#' @format A data frame with 408 rows and 3 variables:
+#' \describe{
+#'   \item{time}{time to event since transplant (in months)}
+#'   \item{status}{event status, 1 is dead from treatment related causes, 2 is relapse , 0 is censored.}
+#'   \item{group}{platelet level: 1 if more than 100 x 10^9 per L, 0 if less}
+#' }
+#' @source 'timereg' package
+#' @references
+#' Li, J., Le-Rademacher, J., & Zhang, M. J. (2014). Weighted comparison of two cumulative incidence functions with R-CIFsmry package. Computer methods and programs in biomedicine, 116(3), 205-214.
+#'     
+"BMTplat"
+
+#' Bone Marrow Transplant Registry
+#'
+#' The data contain observations of 408 patients treated with HLA-identical sibling
+#' bone marrow transplantation for myelodysplasia. The dataset is essentially a subset of
+#' the 'bmt' data of the 'timereg' package (minor changes were introduced to break the ties).
 #' 
 #' @format A data frame with 408 rows and 3 variables:
 #' \describe{
@@ -62,7 +80,7 @@
 
 #' Simulated competing risks data
 #'
-#' The data were simulated as described in Blanche & Eriksson (2023), using  scenario A with sample size n=100. It is used to examplify a few specific points in the paper.
+#' The data were simulated as described in Blanche & Eriksson (2023), using  scenario A with sample size n=100.
 #' 
 #' @format A data frame with 100 rows and 3 variables:
 #' \describe{
@@ -72,6 +90,6 @@
 #' }
 #' @source Simulated data
 #' @references
-#' Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks (submitted)
+#' Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks.
 #'     
 "SimA100"

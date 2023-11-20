@@ -26,7 +26,7 @@ Res2SKM95 <- TwoSampleKaplanMeier(time=Freireich$time,
                                   status=Freireich$status,
                                   group=Freireich$group,
                                   t=10)
-print(Res2SKM95, digits=3, what="SR",method="EL")
+print(Res2SKM95, digits=3, what="SR", method="EL")
 
 }
 \author{

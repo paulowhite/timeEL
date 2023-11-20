@@ -19,9 +19,9 @@ Simulated data
 SimA100
 }
 \description{
-The data were simulated as described in Blanche & Eriksson (2023), using  scenario A with sample size n=100. It is used to examplify a few specific points in the paper.
+The data were simulated as described in Blanche & Eriksson (2023), using  scenario A with sample size n=100.
 }
 \references{
-Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks (submitted)
+Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks.
 }
 \keyword{datasets}

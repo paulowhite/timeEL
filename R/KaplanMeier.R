@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Mar 30 2021 (14:53) 
 ## Version: 
-## Last-Updated: Mar 21 2023 (14:45) 
+## Last-Updated: Aug 10 2023 (14:05) 
 ##           By: Paul Blanche
-##     Update #: 152
+##     Update #: 154
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -19,13 +19,13 @@
 ##' @description
 ##' Computes the Kaplan-Meier estimator to estimate a risk or, equivalently, a survival probability,
 ##' with right-censored data, together with a confidence interval and (possibly) a
-##' p-value (for a one-sample hypothesis test). Computation of confidence intervals
+##' p-values (for a one-sample hypothesis test). Computation of confidence intervals
 ##' and p-values is based on either Empirical Likelihood (EL) inference
 ##' or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
 ##' See Thomas & Grunkemeier (1975) for details about the Empirical Likelihood method. For the Wald-type approach,
 ##' the asymptotic normal approximation is used on the cloglog scale. See e.g. equation 4.16 in Beyersmann et al (2011).
 ##' 
-##' @title Risk and survival probability estimate using the Kaplan-Meier method
+##' @title Risk and survival probability estimates using the Kaplan-Meier method
 ##' 
 ##' @param time vector of times (possibly censored)
 ##' @param status vector of usual survival status indicators (0 for censored observations, 1 for events)

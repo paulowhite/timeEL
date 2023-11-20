@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Mar 15 2021 (09:30) 
 ## Version: 
-## Last-Updated: Mar 21 2023 (14:44) 
+## Last-Updated: Sep 13 2023 (11:39) 
 ##           By: Paul Blanche
-##     Update #: 267
+##     Update #: 287
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -19,7 +19,8 @@
 ##' Computes an (absolute) risk difference or ratio with right-censored competing risks data, together with a confidence interval and a
 ##' p-value (to test for a difference between the two risks). Pointwise estimates are computed via the Aalen-Johansen estimator. Computation of confidence intervals
 ##' and p-values are based on either Empirical Likelihood (EL) inference or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
-##' See Blanche & Eriksson (2023) for details. For the Wald-type approach, the asymptotic normal approximation is used on the log scale for the risk ratio. No transformation is used for the risk difference.
+##' For the Wald-type approach, the asymptotic normal approximation is used on the log scale for the risk ratio. No transformation is used for the risk difference.
+##' See Blanche & Eriksson (2023) for details.
 ##'
 ##' 
 ##' 
@@ -39,18 +40,25 @@
 ##' @author Paul Blanche
 ##'
 ##' @references
-##' Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks (submitted)
+##' Blanche & Eriksson (2023). Empirical likelihood comparison of absolute risks.
 ##'
-##'
-##' @examplesIf FALSE
-##'
-##' ## An example with simulated, for which some results are presented in
-##' ## a Figure in Blanche & Eriksson (2023). It takes approx 20 seconds to run.
-##' ##
+##' @examples
+##' ## A simple example for Wald-type inference, using simulated data.
 ##' ## It illustrates the possible inconsistency of Wald-type inference, in
 ##' ## terms of statistical significance, when inference is based on the risk
 ##' ## ratio and on the risk difference. This inconsistency cannot exist
-##' ## using when an empirical likelihood approach.
+##' ## using an empirical likelihood approach.
+##' 
+##' ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
+##'                                      cause=SimA100$status,
+##'                                      group=SimA100$group,
+##'                                      t=1,
+##'                                      contr=list(method="Wald"))
+##' ResSimA100
+##' 
+##' @examplesIf FALSE
+##' ## Same example data, but now analyzed with and empirical likelihood approach. It
+##' ## takes approx 20 seconds to run.
 ##' 
 ##' ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
 ##'                                      cause=SimA100$status,
@@ -210,12 +218,14 @@ TwoSampleAalenJohansen <- function(time,
         PbRRu <- is.na(outEmpLikeRR[2])
         PbRRboth <- all(c(PbRRl,PbRRu))
         PbRR <- any(c(PbRRl,PbRRu))
+        ## browser()
         if(PbRR){
-            while(PbRR & k < 10){           
+            while(PbRR & k < 11){           
                 k <- k+1
+                if(k==10){k <- 100}
                 if(contr$Trace){
                     print(paste0("Wile loop, k=",k))
-                    print(paste0("Current is:  ",paste(format(outEmpLikeRR,digits=5),collapse=" - ")))
+                    print(paste0("Current CI for RR is:  ",paste(format(outEmpLikeRR,digits=5),collapse=" - ")))
                 }
                 #-- recompute limits to search for EL CI, based on Wald CI  -- #
                 outWald1k <- ciRisk(R1=risk1,
@@ -231,12 +241,12 @@ TwoSampleAalenJohansen <- function(time,
                                     seR2=se.risk0,
                                     RR.H0=RR.H0,
                                     Diff.H0=Diff.H0,
-                                    alpha=(1-level)*k)                    
+                                    alpha=min((1-level)*k,0.9))                    
                 #-
                 if(contr$Trace){
-                    if(PbRRboth) print(paste0("Now search limits are, for lower= ",paste(format(c(outWald1k$RR["lower"],outWald2k$RR["lower"]),digits=5),collapse=" - "),", for  upper= ",paste(format(c(outWald2k$RR["upper"],outWald1k$RR["upper"]),digits=5),collapse=" - ")))
-                    if(PbRRl) print(paste0("Now search limits are lower= ",paste(format(c(outWald1k$RR["lower"],outWald2k$RR["lower"]),digits=5),collapse=" - ")))
-                    if(PbRRu) print(paste0("Now search limits are upper= ",paste(format(c(outWald2k$RR["upper"],outWald1k$RR["upper"]),digits=5),collapse=" - ")))
+                    if(PbRRboth) print(paste0("Now search limits are (for CI of RR) for lower= ",paste(format(c(outWald1k$RR["lower"],outWald2k$RR["lower"]),digits=5),collapse=" - "),", for  upper= ",paste(format(c(outWald2k$RR["upper"],outWald1k$RR["upper"]),digits=5),collapse=" - ")))
+                    if(PbRRl) print(paste0("Now search limits are (for CI of RR) lower= ",paste(format(c(outWald1k$RR["lower"],outWald2k$RR["lower"]),digits=5),collapse=" - ")))
+                    if(PbRRu) print(paste0("Now search limits are (for CI of RR) upper= ",paste(format(c(outWald2k$RR["upper"],outWald1k$RR["upper"]),digits=5),collapse=" - ")))
                 }
                 #-- recompute EL CI  -- #
                 outEmpLikeRR <- EmpLikRRCI(data=d,
@@ -266,11 +276,12 @@ TwoSampleAalenJohansen <- function(time,
         PbRdiffboth <- all(c(PbRdiffl,PbRdiffu))
         PbRdiff <- any(c(PbRdiffl,PbRdiffu))    
         if(PbRdiff){
-            while(PbRdiff & k < 10){           
+            while(PbRdiff & k < 11){           
                 k <- k+1
+                if(k==10){k <- 100}
                 if(contr$Trace){
                     print(paste0("Wile loop, k=",k))
-                    print(paste0("Current is:  ",paste(format(outEmpLikeRdiff,digits=5),collapse=" - ")))
+                    print(paste0("Current CI for Diff is:  ",paste(format(outEmpLikeRdiff,digits=5),collapse=" - ")))
                 }
                 #-- recompute limits to search for EL CI, based on Wald CI  -- #
                 outWald1k <- ciRisk(R1=risk1,
@@ -286,12 +297,12 @@ TwoSampleAalenJohansen <- function(time,
                                     seR2=se.risk0,
                                     RR.H0=RR.H0,
                                     Diff.H0=Diff.H0,
-                                    alpha=(1-level)*k)                    
+                                    alpha=min((1-level)*k,0.9))                    
                 #-
                 if(contr$Trace){
-                    if(PbRdiffboth) print(paste0("Now search limits are, for lower= ",paste(format(c(outWald1k$Rdiff["lower"],outWald2k$Rdiff["lower"]),digits=5),collapse=" - "),", for  upper= ",paste(format(c(outWald2k$Rdiff["upper"],outWald1k$Rdiff["upper"]),digits=5),collapse=" - ")))
-                    if(PbRdiffl) print(paste0("Now search limits are lower= ",paste(format(c(outWald1k$Rdiff["lower"],outWald2k$Rdiff["lower"]),digits=5),collapse=" - ")))
-                    if(PbRdiffu) print(paste0("Now search limits are upper= ",paste(format(c(outWald2k$Rdiff["upper"],outWald1k$Rdiff["upper"]),digits=5),collapse=" - ")))
+                    if(PbRdiffboth) print(paste0("Now search limits are (for CI of Diff) for lower= ",paste(format(c(outWald1k$Rdiff["lower"],outWald2k$Rdiff["lower"]),digits=5),collapse=" - "),", for  upper= ",paste(format(c(outWald2k$Rdiff["upper"],outWald1k$Rdiff["upper"]),digits=5),collapse=" - ")))
+                    if(PbRdiffl) print(paste0("Now search limits are (for CI of Diff) lower= ",paste(format(c(outWald1k$Rdiff["lower"],outWald2k$Rdiff["lower"]),digits=5),collapse=" - ")))
+                    if(PbRdiffu) print(paste0("Now search limits are (for CI of Diff) upper= ",paste(format(c(outWald2k$Rdiff["upper"],outWald1k$Rdiff["upper"]),digits=5),collapse=" - ")))
                 }
                 #-- recompute EL CI  -- #
                 outEmpLikeRdiff <- EmpLikRdiffCI(data=d,

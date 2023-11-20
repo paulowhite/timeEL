@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Mar 12 2021 (16:11) 
 ## Version: 
-## Last-Updated: Mar 21 2023 (14:44) 
+## Last-Updated: Aug 10 2023 (13:56) 
 ##           By: Paul Blanche
-##     Update #: 160
+##     Update #: 163
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -19,14 +19,14 @@
 ##' Computes the Aalen-Johansen estimator to estimate an (absolute) risk
 ##' with right-censored competing risks data, together with a confidence interval and (possibly) a
 ##' p-value (for a one-sample hypothesis test). Computation of confidence intervals
-##' and p-value is based on either Empirical Likelihood (EL) inference
+##' and p-values is based on either Empirical Likelihood (EL) inference
 ##' or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
 ##' See Blanche (2020) for details. For the Wald-type approach, the asymptotic normal approximation is used on the cloglog scale. See e.g. equation 4.21 in Beyersmann et al (2011).
 ##' 
 ##' @title Risk estimate using the Aalen-Johansen method
 ##' @param time vector of times (possibly censored)
 ##' @param cause vector of event types/causes. It should be coded 1 for main events, 2 for competing events and 0 for censored.
-##' @param t the time point of interest (e.g. 1 to compute 1-year risk)
+##' @param t the time point of interest (e.g., 1 to compute a 1-year risk)
 ##' @param risk.H0 risk under the null hypothesis, if one would like to compute the correspondng p-value. Default is NULL, for which no p-value is computed.
 ##' @param level confidence level for the confidence intervals. Default is 0.95. 
 ##' @param contr list of control parameters. tol=tolerance for numerical computation, default is 1e-5. method="EL", "Wald" or "both"  indicates wether 95% CI and p-value should be computed based on Empirical Likelihood (EL) inference , Wald-type inference or both.

@@ -18,7 +18,7 @@ AalenJohansen(
 
 \item{cause}{vector of event types/causes. It should be coded 1 for main events, 2 for competing events and 0 for censored.}
 
-\item{t}{the time point of interest (e.g. 1 to compute 1-year risk)}
+\item{t}{the time point of interest (e.g., 1 to compute a 1-year risk)}
 
 \item{risk.H0}{risk under the null hypothesis, if one would like to compute the correspondng p-value. Default is NULL, for which no p-value is computed.}
 
@@ -33,7 +33,7 @@ object of class 'AalenJohansen'
 Computes the Aalen-Johansen estimator to estimate an (absolute) risk
 with right-censored competing risks data, together with a confidence interval and (possibly) a
 p-value (for a one-sample hypothesis test). Computation of confidence intervals
-and p-value is based on either Empirical Likelihood (EL) inference
+and p-values is based on either Empirical Likelihood (EL) inference
 or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
 See Blanche (2020) for details. For the Wald-type approach, the asymptotic normal approximation is used on the cloglog scale. See e.g. equation 4.21 in Beyersmann et al (2011).
 }

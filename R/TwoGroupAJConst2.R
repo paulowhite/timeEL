@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Aug 19 2020 (16:21) 
 ## Version: 
-## Last-Updated: Mar 21 2023 (14:24) 
+## Last-Updated: Aug 10 2023 (15:10) 
 ##           By: Paul Blanche
-##     Update #: 259
+##     Update #: 268
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -54,6 +54,7 @@ TwoGroupAJConst2 <- function (tstar,
         # group 0
         pt0 <- ifelse(isRdiff,min(max(pt-Rdiff,mytol),1-mytol),min(pt/RR,1-mytol))
         ## print(paste0("pt0=",pt0))
+        ## browser()
         res0 <- AJConstrain (tstar=tstar,
                              CIF1star=pt0,
                              data=d0,
@@ -91,7 +92,6 @@ TwoGroupAJConst2 <- function (tstar,
         upperOptim <- min(1-mytol,RR-mytol)
     }
     # }}}
-    
     # {{{ optimization: search pt (i.e. constraint for group 1)
     res <- stats::optim(fn=ptToLogLikelihood,
                         method="Brent",

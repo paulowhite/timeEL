@@ -3,7 +3,7 @@
 ##' 
 ##' @param x an object of class 'KaplanMeier'
 ##' @param digits number of digits to print the results
-##' @param type either "surv" or "risk" (the default), depending on whether we want to print the results in terms of a survival probability or a risk (i.e. one minus the survival probability)
+##' @param type either "surv" or "risk" (the default), depending on whether we want to print the results in terms of a survival probability or a risk (i.e., one minus the survival probability).
 ##' @param method either "EL", "Wald" or "both", depending on whether we want to print the results obtained when using empirical likelihood inference (EL), Wald-type inference (Wald) or both. Default is 'NULL', which means that 'method' inherits the value of the corresponding control parameter used when creating the object 'x'. 
 ##' @param ... Not used
 ##' 
@@ -14,8 +14,8 @@
 ##' ResKM.1.95 <- KaplanMeier(time=Freireich$time[Freireich$group==1],
 ##'                           status=Freireich$status[Freireich$group==1],
 ##'                           t=10, level=0.95, contr=list(tol=1e-4))
-##' print(ResKM.1.95, digits=3, type="surv", method="EL")   # Show only EL results for survival
-##' print(ResKM.1.95, digits=3, type="risk", method="Wald") # Show only Wald results for risk
+##' print(ResKM.1.95, digits=3, type="surv", method="EL")   # EL results for survival
+##' print(ResKM.1.95, digits=3, type="risk", method="Wald") # Wald results for risk
 ##'
 ##' 
 ##' @export
@@ -105,7 +105,7 @@ print.KaplanMeier <- function(x,digits=4,
 ##'                                   status=Freireich$status,
 ##'                                   group=Freireich$group,
 ##'                                   t=10)
-##' print(Res2SKM95, digits=3, what="SR",method="EL")
+##' print(Res2SKM95, digits=3, what="SR", method="EL")
 ##' 
 #' @export
 print.TwoSampleKaplanMeier <- function(x,
@@ -268,21 +268,30 @@ print.AalenJohansen <- function(x,
 ##' 
 ##' @author Paul Blanche
 ##'
-##' @examplesIf FALSE
-##'
-##' ## An example with simulated, for which some results are presented in
-##' ## a Figure in Blanche & Eriksson (2023). It takes approx 20 seconds to run.
-##' ##
+##' @examples
+##' ## A simple example for Wald-type inference, using simulated data.
 ##' ## It illustrates the possible inconsistency of Wald-type inference, in
 ##' ## terms of statistical significance, when inference is based on the risk
 ##' ## ratio and on the risk difference. This inconsistency cannot exist
-##' ## using when an empirical likelihood approach.
+##' ## using an empirical likelihood approach.
+##' 
+##' ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
+##'                                      cause=SimA100$status,
+##'                                      group=SimA100$group,
+##'                                      t=1,
+##'                                      contr=list(method="Wald"))
+##' print(ResSimA100, digits=3, what="Diff")
+##' print(ResSimA100, digits=3, what="RR")
+##' 
+##' @examplesIf FALSE
+##' ## Same example data, but now analyzed with and empirical likelihood approach. It
+##' ## takes approx 20 seconds to run.
 ##' 
 ##' ResSimA100 <- TwoSampleAalenJohansen(time=SimA100$time,
 ##'                                      cause=SimA100$status,
 ##'                                      group=SimA100$group,
 ##'                                      t=1)
-##' print(ResSimA100, digits=2, what="Diff",  method="EL")
+##' print(ResSimA100, digits=3, what="Diff",  method="EL")
 ##' 
 #' @export
 print.TwoSampleAalenJohansen <- function(x,

@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Dec 27 2021 (11:30) 
 ## Version: 
-## Last-Updated: Aug 11 2022 (12:37) 
+## Last-Updated: Apr  4 2023 (20:54) 
 ##           By: Paul Blanche
-##     Update #: 90
+##     Update #: 100
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -52,7 +52,7 @@ AJwithSE <- function (tstar,
     names(risk.t) <- NULL
     names(CIF1) <- names(CIF2) <- names(Surv)
     which((CIF1 + CIF2 + Surv)!=1)
-    unique(CIF1 + CIF2 + Surv)
+    unique(CIF1 + CIF2 + Surv)    
     #--
     if(CompAllse){
         #--- compute se at all times s such that s<=t 
@@ -67,6 +67,13 @@ AJwithSE <- function (tstar,
         #--- compute se at t only
         line1 <- (((max(CIF1)- CIF1[-1] )^2)/(nj - (d1j + d2j)))*(a1 + a2)
         line2 <- ((Surv[-(kj+1)]^2)/(nj^3))*(d1j)*( nj - d1j - 2*(nj - (d1j + d2j))*(max(CIF1)- CIF1[-1] )/Surv[-1]  )
+        # {{{ To handle cases where
+        # (nj - (d1j + d2j))
+        # goes to zero
+        line1 <- line1[!is.nan(line1)]
+        line2 <- line2[!is.nan(line2)]
+        # }}}
+        
         se <- c(0,rep(NA,kj-1),sqrt(sum(line1 + line2)))
         #---
     }

@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Aug 11 2022 (16:41) 
 ## Version: 
-## Last-Updated: Mar 16 2023 (12:10) 
+## Last-Updated: Aug 10 2023 (13:10) 
 ##           By: Paul Blanche
-##     Update #: 29
+##     Update #: 30
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -15,7 +15,7 @@
 ## 
 ### Code:
 
-# {{{ Reproduce example with simulated data (Scenario A, n=100) and Wald-type inference inconsistency (see Figure in Blanche & Eriksson (2023))
+# {{{ Example with simulated data (Scenario A, n=100) and Wald-type inference inconsistency
 
 test_that("Reproduce example with simulated data (Scenario A, n=100) and Wald-type inference inconsistency",{
 

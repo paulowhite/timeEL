@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Dec  9 2020 (12:53) 
 ## Version: 
-## Last-Updated: Aug 11 2022 (14:36) 
+## Last-Updated: Aug 14 2023 (09:50) 
 ##           By: Paul Blanche
-##     Update #: 5
+##     Update #: 20
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -14,7 +14,6 @@
 #----------------------------------------------------------------------
 ## 
 ### Code:
-
 MyLogLike <- function(a1,
                       a2,
                       ssn
@@ -24,8 +23,14 @@ MyLogLike <- function(a1,
     # number of observerved times before the timepoint of ineterest
     nbt <- length(a1)
     ssn <- ssn-1
+    # {{{ fix, just to handle the case in which the survival goes to 0
+    # and to avoid computing 0*log(0), which returns NaN,
+    # although it should return 0 here.
+    ToSumSurvTerm <- (ssn:(ssn-nbt+1))*log(1 - a1 - a2)
+    if(nbt>ssn){ ToSumSurvTerm <- ToSumSurvTerm[-nbt] }
+    # }}}    
     # loglikelihood corresponding to AJ1
-    ll1 <- sum(log(a1[i1])) + sum(log(a2[i2])) + sum((ssn:(ssn-nbt+1))*log(1 - a1 - a2))
+    ll1 <- sum(log(a1[i1])) + sum(log(a2[i2])) + sum(ToSumSurvTerm)
     ll1
 }
 

@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: May 23 2018 (09:03) 
 ## Version: 
-## Last-Updated: Aug 11 2022 (14:54) 
+## Last-Updated: Aug 14 2023 (16:10) 
 ##           By: Paul Blanche
-##     Update #: 62
+##     Update #: 64
 ##----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -111,7 +111,7 @@ CIFlambda <- function (tstar,
                              CIF1>=0,
                              CIF2<=1,
                              CIF2>=0,
-                             CIF1 + CIF2<=1
+                             CIF1 + CIF2<=1+0.5*(1e-5)
                              )))
     out <- list(n=N,
                 time = time[II],

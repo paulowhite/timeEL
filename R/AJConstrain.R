@@ -92,19 +92,18 @@ AJConstrain <- function (tstar,
                                 CIF1>=0,
                                 CIF2<=1,
                                 CIF2>=0,
-                                CIF1 + CIF2<=1
+                                CIF1 + CIF2<=1+0.5*mytol
                                 ))
                     )
         out
     }
     # }}}
     # {{{ find lambda
-    ## browser()
     # {{{ we find interval for lambda with positive values for all aki in which to use uniroot
     if(Trace){print(paste("lambda.min : start"))}
     thelambdamin <- stats::uniroot(f=function(l){as.numeric(CIFlambda(l)$allOK) - 0.5},
                                    lower=min(-N*1000,-N*(10/mytol)), # How to choose that ????
-                                   upper=0,
+                                   upper=mytol,
                                    tol=mytol)$root
     if(!CIFlambda(thelambdamin)$allOK){
         nwhilellop <- 0
@@ -113,7 +112,7 @@ AJConstrain <- function (tstar,
             nwhilellop <- nwhilellop + 1
             thelambdamin <- stats::uniroot(f=function(l){as.numeric(CIFlambda(l)$allOK) - 0.5},
                                            lower=thelambdamin,
-                                           upper=0,
+                                           upper=mytol,
                                            ## extendInt = c("downX"),
                                            tol=mytol)$root
         }
@@ -122,10 +121,10 @@ AJConstrain <- function (tstar,
         print(paste("lambda.min : done"))
         print(paste("thelambdamin=",thelambdamin))
     }
-    ## browser()
     if(sum(data$status==2 & data$time <= tstar)>=1){ # only if there are competing events before t
+       
         thelambdamax <- stats::uniroot(f=function(l){as.numeric(CIFlambda(l)$allOK) - 0.5},
-                                       lower=0,
+                                       lower=mytol,
                                        ## upper=N*1000, # How to choose that ????
                                        upper=max(N*1000,N*(10/mytol)),
                                        ## extendInt = c("upX"),
@@ -141,7 +140,7 @@ AJConstrain <- function (tstar,
                 }
                 nwhilellop2 <- nwhilellop2 + 1
                 thelambdamax <- stats::uniroot(f=function(l){as.numeric(CIFlambda(l)$allOK) - 0.5},
-                                               lower=0,
+                                               lower=mytol,
                                                upper=thelambdamax,
                                                tol=mytol)$root
                 if(Trace){
@@ -162,39 +161,82 @@ AJConstrain <- function (tstar,
         lengthxxx <- 1000
         xxx <- seq(from=thelambdamin,to=thelambdamax,length.out=lengthxxx)
         yyy <- sapply(xxx,function(x){o <- CIFlambda(x);o$forRoot - CIF1star})
-        graphics::plot.default(xxx,yyy,ylim=c(-1,1))
+        graphics::plot.default(xxx,yyy,ylim=c(-1,1),xlab="lambda",ylab="To root (computed risk minus constraint)")
         graphics::abline(h=0)
         graphics::abline(v=thelambdamin)
         graphics::abline(v=thelambdamax)
+        graphics::abline(v=xxx[which(!duplicated(sign(yyy)))[-1]],col="red")
+        graphics::text(x=xxx[which(!duplicated(sign(yyy)))[-1]],y=0,"Root",col="red",pos=3)
+        #        
         ## graphics::abline(v=(-N/(1-CIF1star)),col="red")
         ## graphics::abline(v=(N/CIF1star),col="red")
         #    
-        yyy[1]
-        yyy[lengthxxx]
-        CIFlambda(xxx[1])$alla1a2Positive
-        CIFlambda(xxx[lengthxxx])$alla1a2Positive
-        CIFlambda(xxx[1] + 5)$alla1a2Positive
-        CIFlambda(xxx[1] + 100/N)$forRoot - CIF1star
-        CIFlambda(xxx[lengthxxx])$alla1a2Positive
+        ## yyy[1]
+        ## yyy[lengthxxx]
+        ## CIFlambda(xxx[1])$alla1a2Positive
+        ## CIFlambda(xxx[lengthxxx])$alla1a2Positive
+        ## CIFlambda(xxx[1] + 5)$alla1a2Positive
+        ## CIFlambda(xxx[1] + 100/N)$forRoot - CIF1star
+        ## CIFlambda(xxx[lengthxxx])$alla1a2Positive
         #
-        CIFlambda(thelambdamin)$alla1a2Positive
-        CIFlambda(thelambdamax)$alla1a2Positive
-        CIFlambda(thelambdamax)$forRoot
-        CIFlambda(thelambdamax)$forRoot - CIF1star
-        CIFlambda(thelambdamin)$forRoot - CIF1star
+        ## CIFlambda(thelambdamin)$alla1a2Positive
+        ## CIFlambda(thelambdamax)$alla1a2Positive
+        ## CIFlambda(thelambdamax)$forRoot
+        ## CIFlambda(thelambdamax)$forRoot - CIF1star
+        ## CIFlambda(thelambdamin)$forRoot - CIF1star
         graphics::points(thelambdamin,CIFlambda(thelambdamin)$forRoot - CIF1star,col="red")
         graphics::points(thelambdamax,CIFlambda(thelambdamax)$forRoot - CIF1star,col="red")
-        CIFlambda(thelambdamax)$allOK
-        CIFlambda(thelambdamax)$CIF1
-        CIFlambda(thelambdamax)$CIF2
-        CIFlambda(thelambdamax)$a
+        ## CIFlambda(thelambdamax)$allOK
+        ## CIFlambda(thelambdamax)$CIF1
+        ## CIFlambda(thelambdamax)$CIF2
+        ## CIFlambda(thelambdamax)$a
     }
     # }}}
-    if(Trace){print(paste("Int lambda.min , lambda.max : done"))}
+    if(Trace){
+        print(paste("Int lambda.min , lambda.max : (initial step) done"))
+    }
+
+    # {{{ TO FIX !!!
+    ## CIFlambda((thelambdamin))$forRoot- CIF1star
+    ## CIFlambda((thelambdamax*(1-sqrt(mytol))))$forRoot- CIF1star
+    ## browser()
+    ## 1+1
+    # }}}
+    
     # {{{ find lambda within interval
+    # Here we check that the search interval is really valid. If not, we narrow it down a bit,
+    PbWithSign <- sign(CIFlambda(thelambdamin)$forRoot - CIF1star)==sign(CIFlambda(thelambdamax)$forRoot - CIF1star)   
+    if(PbWithSign){
+        if(Trace){
+            print(paste("Int lambda.min , lambda.max : need to be UPDATED (same sign for the function to root at both ends of the interval)"))
+        }
+        thelambdamin0 <- thelambdamin
+        thelambdamax0 <- thelambdamax
+        nwhileloop <- 0
+        while(PbWithSign & nwhileloop<30){
+            nwhileloop <- nwhileloop + 1
+            thelambdamin <- thelambdamin0*(1+(mytol)^{1/nwhileloop})
+            thelambdamax <- thelambdamax0*(1-(mytol)^{1/nwhileloop})
+            PbWithSign <- sign(CIFlambda(thelambdamin)$forRoot - CIF1star)==sign(CIFlambda(thelambdamax)$forRoot - CIF1star)   
+            if(Trace){
+                print(paste("Step =",nwhileloop, "out of max 30"))
+                print(paste("New thelambdamax=",thelambdamax))
+                print(paste("New thelambdamin=",thelambdamin))
+            }
+        }
+
+        if(Trace & !PbWithSign){
+            print(paste("Int lambda.min , lambda.max : updated as needed :-)"))
+        }
+        if(PbWithSign){
+            print(paste("Search interval [lambda.min , lambda.max] leads to the same sign for the function to root at both ends of the interval :-("))
+            print(paste("Currently mytol=",mytol,". Please consider using a smaller value"))
+        }
+    }        
+    # Now we search the lambda within the interval
     thelambda <- stats::uniroot(f=function(x){o <- CIFlambda(x);o$forRoot} - CIF1star,
-                                lower=(thelambdamin + 1/N),
-                                upper=(thelambdamax -1/N),tol=mytol)$root
+                                lower=thelambdamin,
+                                upper=thelambdamax,tol=mytol)$root
 
     if(Trace){print("thelambda: done")}
     # {{{ to understand bugs
