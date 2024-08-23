@@ -3,9 +3,9 @@
 ## Author: Paul Blanche
 ## Created: Mar 30 2021 (14:53) 
 ## Version: 
-## Last-Updated: Aug 10 2023 (14:05) 
+## Last-Updated: Aug  1 2024 (15:28) 
 ##           By: Paul Blanche
-##     Update #: 154
+##     Update #: 155
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -19,7 +19,7 @@
 ##' @description
 ##' Computes the Kaplan-Meier estimator to estimate a risk or, equivalently, a survival probability,
 ##' with right-censored data, together with a confidence interval and (possibly) a
-##' p-values (for a one-sample hypothesis test). Computation of confidence intervals
+##' p-value (for a one-sample hypothesis test). Computation of confidence intervals
 ##' and p-values is based on either Empirical Likelihood (EL) inference
 ##' or Wald-type inference. Both are non-parametric approaches, which are asymptotically equivalent.
 ##' See Thomas & Grunkemeier (1975) for details about the Empirical Likelihood method. For the Wald-type approach,
