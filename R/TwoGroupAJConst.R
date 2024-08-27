@@ -109,6 +109,10 @@ TwoGroupAJConst <- function (tstar,
                        to=myupperpi1,
                        length.out=100)
             zzz <- sapply(xxx,bisfpi1)
+            # {{{ to NOT change the user's options
+            oldpar <- graphics::par(no.readonly = TRUE)
+            on.exit(graphics::par(oldpar)) 
+            # }}}
             graphics::par(mfrow=c(1,3))
             graphics::plot.default(xxx,zzz,xlab="pi1", ylab="f for which we need the root")
             graphics::abline(v=CIF1gr1,col="blue",lty=2,lwd=2)
@@ -148,7 +152,13 @@ TwoGroupAJConst <- function (tstar,
                                       )
     lambda <- resGroup1$lambda
     if(ShowPlot){
-        if(!ToDebug){graphics::par(mfrow=c(1,2))}
+        if(!ToDebug){
+            # {{{ to NOT change the user's options
+            oldpar <- graphics::par(no.readonly = TRUE)
+            on.exit(graphics::par(oldpar)) 
+            # }}}            
+            graphics::par(mfrow=c(1,2))
+        }
         ResTemps1 <- AJConstrain (tstar=tstar,
                                   CIF1star=pi1,
                                   data=d1,

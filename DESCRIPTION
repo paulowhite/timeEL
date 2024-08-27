@@ -1,8 +1,8 @@
 Package: timeEL
 Title: Time to Event Analysis via Empirical Likelihood Inference
-Version: 0.9.0
+Version: 0.9.1
 Authors@R: c(person("Paul", "Blanche", email= "paulfblanche@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1415-7976")),person("Frank", "Eriksson", role = c("ctb")))
-Description: Functions to compute t-year survival probabilities and t-year
+Description: Computation of t-year survival probabilities and t-year
     risks with right censored survival data. The Kaplan-Meier estimator
     is used to provide estimates for data without competing risks and
     the Aalen-Johansen estimator is used when there are competing risks.

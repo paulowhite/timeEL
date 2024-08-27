@@ -33,7 +33,6 @@ plot.constrainedAJ <- function(x, plot.lambda0=TRUE){
 
 plot.constrainedKM <- function(x){
     # fix if one value for Sc
-    ## browser()
     k <- length(x$time)
     xx <-c(0,rep(x$time,each=2),x$tstar)
     yKMcons <- c(rep(c(1,x$Sc[-k]),each=2),x$Sc[k],x$pstar)

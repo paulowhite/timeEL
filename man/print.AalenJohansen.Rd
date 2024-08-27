@@ -15,12 +15,16 @@
 
 \item{...}{Not used}
 }
+\value{
+no return value, called for printing only.
+}
 \description{
 Print function for object of class 'AalenJohansen'
 }
 \examples{
 x <- AalenJohansen(time=melanoma5$time, cause=melanoma5$status, t=4, level=0.95)
 print(x, digits=3, method="EL")
+
 }
 \author{
 Paul Blanche

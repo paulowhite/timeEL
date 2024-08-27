@@ -17,6 +17,9 @@
 
 \item{...}{Not used}
 }
+\value{
+no return value, called for printing only.
+}
 \description{
 Print function for object of class 'TwoSampleKaplanMeier'
 }

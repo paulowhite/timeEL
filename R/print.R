@@ -17,6 +17,7 @@
 ##' print(ResKM.1.95, digits=3, type="surv", method="EL")   # EL results for survival
 ##' print(ResKM.1.95, digits=3, type="risk", method="Wald") # Wald results for risk
 ##'
+##' @return no return value, called for printing only.
 ##' 
 ##' @export
 print.KaplanMeier <- function(x,digits=4,
@@ -84,6 +85,7 @@ print.KaplanMeier <- function(x,digits=4,
         }
         cat("\n")
     }
+    return(invisible(NULL))
 }
 # }}}
 
@@ -106,8 +108,10 @@ print.KaplanMeier <- function(x,digits=4,
 ##'                                   group=Freireich$group,
 ##'                                   t=10)
 ##' print(Res2SKM95, digits=3, what="SR", method="EL")
+##'
+##' @return no return value, called for printing only.
 ##' 
-#' @export
+##' @export
 print.TwoSampleKaplanMeier <- function(x,
                                        digits=4,
                                        what="all", # "all", "SR", "RR" or "Diff"
@@ -179,6 +183,7 @@ print.TwoSampleKaplanMeier <- function(x,
         }
     }
     # }}}
+    return(invisible(NULL))
 }
 # }}}
     
@@ -196,7 +201,10 @@ print.TwoSampleKaplanMeier <- function(x,
 ##' @examples
 ##' x <- AalenJohansen(time=melanoma5$time, cause=melanoma5$status, t=4, level=0.95)
 ##' print(x, digits=3, method="EL")
-#' @export
+##'
+##' @return no return value, called for printing only.
+##' 
+##' @export
 print.AalenJohansen <- function(x,
                                 digits=4,
                                 method=NULL,...){
@@ -252,6 +260,7 @@ print.AalenJohansen <- function(x,
         }
         cat("\n")
     }
+    return(invisible(NULL))
 }
 # }}}
 
@@ -292,8 +301,10 @@ print.AalenJohansen <- function(x,
 ##'                                      group=SimA100$group,
 ##'                                      t=1)
 ##' print(ResSimA100, digits=3, what="Diff",  method="EL")
+##'
+##' @return no return value, called for printing only.
 ##' 
-#' @export
+##' @export
 print.TwoSampleAalenJohansen <- function(x,
                                          digits=4,
                                          what="both", # "both", "RR" or "Diff"
@@ -405,6 +416,7 @@ print.TwoSampleAalenJohansen <- function(x,
             cat("\n")
         }
     }
-    # }}}    
+    # }}}
+    return(invisible(NULL))
 }
 # }}}

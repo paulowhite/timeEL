@@ -17,6 +17,9 @@
 
 \item{...}{Not used}
 }
+\value{
+no return value, called for printing only.
+}
 \description{
 Print function for object of class 'KaplanMeier'
 }
@@ -27,7 +30,6 @@ ResKM.1.95 <- KaplanMeier(time=Freireich$time[Freireich$group==1],
                           t=10, level=0.95, contr=list(tol=1e-4))
 print(ResKM.1.95, digits=3, type="surv", method="EL")   # EL results for survival
 print(ResKM.1.95, digits=3, type="risk", method="Wald") # Wald results for risk
-
 
 }
 \author{
